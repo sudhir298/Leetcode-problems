@@ -1,1 +1,49 @@
-
+class Solution {
+public:
+    bool check(vector<int>& nums,int mid,int m)
+    {
+        int suba=1;
+        int sum=0;
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            if(sum>mid)
+            {
+                suba++;
+                sum=nums[i];
+            }
+        }
+        return suba<=m;        
+    }
+    int splitArray(vector<int>& nums, int m) 
+    {
+        int maxim=0;
+        int sum=0;
+        
+        for(int i: nums)
+        {
+            sum+=i;
+            maxim=max(maxim,i);
+        }
+        
+        if(m==nums.size())
+            return maxim;
+        
+        int low=maxim;
+        int high=sum;
+        int res=0;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
+            if(check(nums,mid,m))
+            {
+                res=mid;
+                high=mid-1;
+            }
+            else
+                low=mid+1;
+        }
+        return res;       
+    }
+};

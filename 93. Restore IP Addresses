@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void solve(string& s, int i, int count, string t, vector<string>& res)
+    {
+        int len = s.size();
+        if ( len -i < 4-count  || len - i >(4-count)*3 ) 
+            return;
+
+        if (count == 4 && i == len)
+        {
+            t.erase(t.end()-1, t.end());
+            res.push_back(t);
+            return;
+        }
+
+        int num = 0;
+        for (int j=i; j<i+3; j++)
+        {
+            num = num*10 + (s[j]-'0');
+            if (num<256)
+            {
+                t+=s[j];
+                solve(s, j+1, count+1, t+'.', res);
+            }         
+            if (num == 0) 
+                break;
+        }
+    }
+    vector<string> restoreIpAddresses(string s)
+    {
+        vector<string> res;
+        solve(s, 0, 0, "", res);
+        return res;
+    }
+};

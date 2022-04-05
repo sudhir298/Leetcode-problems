@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool res(TreeNode * root, TreeNode* & last)
+    { 
+        if(root == NULL) 
+            return true;
+        if(!res(root->left, last)) 
+            return false;
+        if(last != NULL && last ->val >= root->val) 
+            return false;
+        last = root;
+        return res(root->right, last);
+    }
+    bool isValidBST(TreeNode* root)
+    {
+        TreeNode * last = NULL;
+        return res(root, last);
+    }
+    
+};

@@ -1,0 +1,27 @@
+class Solution {
+public:
+    map<int, int> mp;
+    
+    TreeNode* build(vector<int>& inorder, int isi, int iei, vector<int>& postorder, int psi, int pei)
+    {
+        if(isi > iei || psi > pei) 
+            return NULL;
+        
+        TreeNode* node = new TreeNode(postorder[pei]);
+        
+        int iroot = mp[postorder[pei]];
+        
+        int leftSize = iroot-isi;
+        
+        node->left = build(inorder, isi, iroot-1, postorder,  psi, psi+leftSize-1);
+        node->right = build(inorder,iroot+1, iei, postorder, psi+leftSize, pei-1);
+        
+        return node;
+    };
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder)
+    {
+        for(int i=0;i<inorder.size();i++)
+            mp[inorder[i]]=i;
+        return build(inorder,0,inorder.size()-1,postorder,0,postorder.size()-1);
+    }
+};

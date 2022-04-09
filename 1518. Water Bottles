@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int solve(int full,int emp,int exch)
+    {
+        if(emp+full<exch)
+            return 0;
+        
+        full=emp/exch;
+        emp=emp%exch;
+        return full+solve(full,emp+full,exch);
+        
+    }
+    int numWaterBottles(int numBottles, int numExchange)
+    {
+        return numBottles+solve(0,numBottles,numExchange);   
+    }
+};

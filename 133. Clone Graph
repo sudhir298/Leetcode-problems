@@ -1,0 +1,28 @@
+class Solution {
+public:
+    Node* makecopy(Node* node,unordered_map<int,Node*>& visited)
+    {
+        Node*  temp=new Node(node->val);
+        visited.insert({node->val,temp});
+        
+        for(Node* i :node->neighbors)
+        {
+            if(visited.find(i->val)==visited.end())
+            {
+                Node* nn=makecopy(i,visited);
+                temp->neighbors.push_back(nn);
+            }
+            else
+                temp->neighbors.push_back(visited.find(i->val)->second);
+        }
+        return temp;
+    }
+    Node* cloneGraph(Node* node)
+    {
+        if(!node)
+            return nullptr;
+        
+        unordered_map<int, Node*> visited;
+        return makecopy(node,visited);
+    }
+};

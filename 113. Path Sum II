@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<vector<int>> res;
+
+    void travel(TreeNode* root,vector<int> &v, int sum, int target)
+    {
+        if(root->left ==NULL && root->right == NULL)
+        {
+            if(sum + root->val == target){
+                v.push_back(root->val);
+                res.push_back(v);
+                v.pop_back();
+            }
+            return;
+        }
+        
+        v.push_back(root->val);
+        
+        if(root->left != NULL) 
+            travel(root->left, v, sum+root->val, target);
+        
+        if(root->right != NULL) 
+            travel(root->right, v, sum+root->val, target);
+        v.pop_back();
+    }
+    
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum)
+    {
+        if(root==NULL)
+            return res;
+        
+        vector<int> v;
+        travel(root,v,0,targetSum);
+        return res;
+    }
+};

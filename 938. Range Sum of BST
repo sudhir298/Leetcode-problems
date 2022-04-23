@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int travel(TreeNode* root,int low,int high)
+    {
+        if(!root)
+            return 0;
+        
+        if(root->val < low)
+            return travel(root->right, low, high);
+
+        if(root->val > high)
+            return travel(root->left, low, high);
+        
+        int res=root->val+travel(root->right, low, high);
+        res+=travel(root->left, low, high);
+        
+        return res;
+    }
+    int rangeSumBST(TreeNode* root, int low, int high) 
+    {
+        return travel(root,low,high);
+    }
+};

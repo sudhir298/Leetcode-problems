@@ -1,0 +1,69 @@
+-------------------------------METHOD 2---------------------------
+-------------------------------METHOD 2---------------------------
+-------------------------------METHOD 2---------------------------
+-------------------------------METHOD 2---------------------------
+
+class Solution {
+public:
+    
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target)    
+    {
+        if(original ==NULL)
+            return NULL;
+        
+        if(original==target)
+            return cloned;
+        
+        TreeNode* x=getTargetCopy(original->left,cloned->left,target);
+        TreeNode* y=getTargetCopy(original->right,cloned->right,target);
+        
+        if(x==NULL)
+            return y;
+        else
+            return x;
+    }
+};
+
+-------------------------------METHOD 1---------------------------
+-------------------------------METHOD 1---------------------------
+-------------------------------METHOD 1---------------------------
+-------------------------------METHOD 1---------------------------
+class Solution {
+public:
+    
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target)    
+    {
+        queue<TreeNode*> oq, cq;
+        
+		if (original == NULL)
+			return NULL;
+        
+		oq.push(original);
+		cq.push(cloned);
+
+		while (!oq.empty())
+		{
+			TreeNode *temp = oq.front();
+			TreeNode *tempc = cq.front();
+
+			oq.pop();
+			cq.pop();
+
+			if (temp == target)
+				return tempc;
+
+			if (temp->left)
+			{
+				oq.push(temp->left);
+				cq.push(tempc->left);
+			}
+
+			if (temp->right)
+			{
+				oq.push(temp->right);
+				cq.push(tempc->right);
+			}
+		}
+		return NULL;
+    }
+};

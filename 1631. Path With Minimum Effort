@@ -1,0 +1,141 @@
+---------------------------------METHOD 3--------------------------
+---------------------------------METHOD 3--------------------------
+---------------------------------METHOD 3--------------------------
+---------------------------------METHOD 3--------------------------BEST BEST
+
+class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) 
+    {
+        vector<int> dirs{0, -1, 0, 1, 0}; 
+        int rows = heights.size();
+        int cols = heights[0].size();
+        
+        using Node = pair<int, int>;
+        priority_queue<Node, vector<Node>, greater<Node>> q;
+        
+        vector<int> dist(rows * cols, INT_MAX / 2);    
+        q.emplace(0, 0);
+        dist[0] = 0;
+        
+        while (!q.empty()) 
+        {
+            auto [t, u] = q.top(); 
+            q.pop();
+            if (u == rows * cols - 1) 
+                return t;
+            if (t > dist[u]) 
+                continue;
+            int ux = u % cols;
+            int uy = u / cols;
+            for (int i = 0; i < 4; ++i) 
+            {
+                int x = ux + dirs[i];
+                int y = uy + dirs[i + 1];
+                if (x < 0 || x == cols || y < 0 || y == rows) 
+                    continue;
+                int v = y * cols + x;
+                int c = abs(heights[uy][ux] - heights[y][x]);
+                if (max(t, c) >= dist[v]) 
+                    continue;
+                q.emplace(dist[v] = max(t, c), v);
+            }
+        }
+        return -1;
+    }
+};
+
+---------------------------------METHOD 1--------------------------
+---------------------------------METHOD 1--------------------------
+---------------------------------METHOD 1--------------------------
+---------------------------------METHOD 1--------------------------
+class Solution {
+public:
+    
+    int minimumEffortPath(vector<vector<int>>& heights) 
+    {
+        int r = heights.size();
+        int c = heights[0].size();
+        int dp[100][100];
+        memset(dp, 127, sizeof(dp));// 127=ox7f
+        dp[0][0] = 0;
+        vector<int> dirs{0, -1, 0, 1, 0};
+        for (int k = 0; k < r * c; ++k) 
+        {
+          bool stable = true;
+          for (int y = 0; y < r; ++y)
+            for (int x = 0; x < c; ++x)
+              for (int d = 0; d < 4; ++d)
+              {
+                int tx = x + dirs[d];
+                int ty = y + dirs[d + 1];
+                if (tx < 0 || tx == c || ty < 0 || ty == r) 
+                    continue;
+                int t =max(dp[ty][tx], abs(heights[ty][tx] -heights[y][x]));
+                if (t < dp[y][x]) 
+                {
+                  stable = false;
+                  dp[y][x] = t;
+                }
+              }    
+          if (stable) 
+              break;
+        }
+        return dp[r - 1][c - 1];   
+    }
+};
+
+
+---------------------------------METHOD 2--------------------------
+---------------------------------METHOD 2--------------------------
+---------------------------------METHOD 2--------------------------
+---------------------------------METHOD 2--------------------------
+class Solution {
+public:
+    int rows;
+    int cols;
+    vector<int> dirs{0, -1, 0, 1, 0};
+    bool bfs(int cost,vector<vector<int>>& heights) 
+    {
+        queue<pair<int, int>> q;
+        vector<int> seen(cols * rows);
+        q.emplace(0, 0);
+        seen[0] = 1;
+        while (!q.empty()) 
+        {
+            auto [cx, cy] = q.front(); q.pop();
+            if (cx == cols - 1 && cy == rows - 1) 
+                return true;
+            for (int i = 0; i < 4; ++i)
+            {
+                int x = cx + dirs[i];
+                int y = cy + dirs[i + 1];
+                if (x < 0 || x == cols || y < 0 || y == rows)
+                    continue;
+                if (abs(heights[cy][cx] - heights[y][x]) > cost) 
+                    continue;
+                if (seen[y * cols + x]++)
+                    continue;
+                q.emplace(x, y);
+            }          
+        }
+        return false;
+    };
+    int minimumEffortPath(vector<vector<int>>& heights) 
+    {
+        rows = heights.size();
+        cols = heights[0].size();    
+        
+        int l = 0, r = INT_MAX;
+        while (l < r) 
+        {
+            int m = l + (r - l) / 2;
+            if (bfs(m,heights)) 
+                r = m;
+            else 
+                l = m + 1;
+        }
+        return l;  
+    }
+};
+

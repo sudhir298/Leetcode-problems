@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isBipartite(vector<vector<int>>& graph) 
+    {
+        vector<int> visited(graph.size());
+        
+        for (int i = 0; i < graph.size(); i++) 
+        {
+            if (graph[i].size() != 0 && visited[i] == 0) 
+            {
+                visited[i] = 1;
+                queue<int> q;
+                q.push(i);
+                while(! q.empty())
+                {
+                    int current = q.front();
+                    q.pop();
+                    for (int c: graph[current])
+                    {
+
+                        if (visited[c] == 0)
+                        {
+                            visited[c] = (visited[current] == 1) ? 2 : 1;
+                            q.push(c);
+                        }
+                        else
+                        {
+                            if(visited[c] == visited[current]) 
+                                return false;
+                        }
+                    }
+                }                        
+            }
+        }
+        
+        return true;
+    }
+};

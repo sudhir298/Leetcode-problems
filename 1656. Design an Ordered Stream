@@ -1,0 +1,22 @@
+class OrderedStream {
+public:
+    vector<string> v;
+    OrderedStream(int n) {
+        v.resize(n,"-1");
+        
+    }
+    int x=0;
+    vector<string> insert(int idKey, string value)
+    {
+        v[idKey-1]=value;
+        vector<string> res;
+        if(v[x]=="-1")
+            return {};
+        else
+        {
+            while(x<v.size() && v[x]!="-1")
+                res.push_back(v[x++]);
+        }
+        return res;
+    }
+};

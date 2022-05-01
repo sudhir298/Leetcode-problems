@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    int sumEvenGrandparent(TreeNode* root) 
+    {
+        stack<TreeNode*> st;
+        stack<int> parents;
+        stack<int> grandparents;
+        
+        int parent;
+        int grandparent;
+        TreeNode *node;
+        int res = 0;
+        
+        st.push(root);
+        parents.push(0);
+        grandparents.push(0);
+        
+        while(!st.empty())
+        {
+            node = st.top(); 
+            st.pop();
+            parent = parents.top();
+            parents.pop();
+            grandparent = grandparents.top(); 
+            grandparents.pop();
+            
+            if(grandparent != 0 && grandparent % 2 == 0)
+                res += node->val;
+            
+            if(node->right)
+            {
+                st.push(node->right);
+                parents.push(node->val);
+                grandparents.push(parent);
+            }
+            
+            if(node->left)
+            {
+                st.push(node->left);
+                parents.push(node->val);
+                grandparents.push(parent);
+            }
+        }
+        
+        return res;
+    }
+};

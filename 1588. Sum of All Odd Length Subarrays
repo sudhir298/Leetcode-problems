@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int sumOddLengthSubarrays(vector<int>& arr) 
+    {
+        vector<int> v;
+        v.push_back(0);
+        for(int i=0;i<arr.size();i++)
+            v.push_back(arr[i]);
+        
+        int n=v.size();
+        for(int i=1;i<n;i++)
+            v[i]+=v[i-1];
+        
+        int winsize=0;
+        int res=0;
+        while(winsize<n)
+        {
+            int j=1;
+            while(j+winsize<n)
+            {
+                res+=(v[winsize+j]-v[j-1]);
+                j++;
+            } 
+            winsize+=2;
+        }
+        return res;
+    }
+};

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    TreeNode* solve(vector<int>& nums, int left, int right)
+    {
+        if (left == right) 
+            return NULL;
+        
+        int maxindex = left;
+        for (int i = left; i < right; i++)
+            maxindex = nums[i] > nums[maxindex] ? i : maxindex;
+        
+        TreeNode* root = new TreeNode(nums[maxindex]);
+        root->left = solve(nums, left, maxindex);
+        root->right = solve(nums, maxindex + 1, right);
+        return root;
+    }
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) 
+    {
+        if(nums.size()==0)
+            return NULL;
+        return solve(nums,0,nums.size());
+    }
+};

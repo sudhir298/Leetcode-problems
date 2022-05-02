@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int pairSum(ListNode* head) 
+    {
+        stack<int> st;
+        ListNode* ptr=head;
+        while(ptr!=NULL)
+        {
+            st.push(ptr->val);
+            ptr=ptr->next;
+        }
+        int n=st.size()/2;
+        int res=INT_MIN;
+        ptr=head;
+        while(n>0)
+        {
+            res=max(res,ptr->val+st.top());
+            st.pop();
+            ptr=ptr->next;
+            n--;
+        }
+        return res;
+    }
+};

@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int prev=0;
+    void travel(TreeNode* root)
+    {
+        if(!root)
+            return ;
+        
+        travel(root->right);
+        if(root!=NULL)
+            root->val+=prev;
+        prev=root->val;
+        travel(root->left);
+    }
+    TreeNode* bstToGst(TreeNode* root) 
+    {
+        travel(root);
+        return root;
+    }
+};

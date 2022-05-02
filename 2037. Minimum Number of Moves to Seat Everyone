@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int minMovesToSeat(vector<int>& seats, vector<int>& students) 
+    {
+        sort(seats.begin(),seats.end());
+        sort(students.begin(),students.end());
+        int res=0;
+        for(auto i=seats.begin(), j=students.begin();i<seats.end();i++,j++)
+            res+=abs(*i-*j);
+        
+        return res;
+    }
+};

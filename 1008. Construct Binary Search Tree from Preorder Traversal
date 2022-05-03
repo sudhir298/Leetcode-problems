@@ -1,0 +1,19 @@
+class Solution {
+public:
+    TreeNode* solve(vector<int>& preorder,int i,int j)
+    {
+        if(i>j)
+            return NULL;
+        
+        TreeNode* root=new TreeNode(preorder[i]);
+        auto it = upper_bound(preorder.begin()+i+1, preorder.begin()+j+1, preorder[i]);
+        root->left=solve(preorder,i+1,it-preorder.begin()-1);
+        root->right=solve(preorder,it-preorder.begin(),j);
+        return root;
+        
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder)
+    {
+        return solve(preorder,0,preorder.size()-1);
+    }
+};

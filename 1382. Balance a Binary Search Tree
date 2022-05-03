@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> v;
+    void dfs(TreeNode* root)
+    {
+        if(!root)
+            return ;
+        dfs(root->left);
+        v.push_back(root->val);
+        dfs(root->right);
+    }
+    TreeNode* build(TreeNode* res, int i,int j)
+    {
+        if(i>j)
+            return NULL;
+        int mid=i+(j-i)/2;
+        res=new TreeNode(v[mid]);
+        res->left=build(res,i,mid-1);
+        res->right=build(res,mid+1,j);
+        return res;
+    }
+    TreeNode* balanceBST(TreeNode* root) 
+    {
+        if(!root)
+            return NULL;
+        TreeNode* res;
+        dfs(root);
+        return build(res,0,v.size()-1);
+    }
+};

@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    vector<TreeNode*> allPossibleFBT(int n) 
+    {
+        if(n%2==0)
+            return {};
+        
+        if(n==1)
+            return {new TreeNode(0)};
+        
+        vector<TreeNode*> res;
+        for(int i=1;i<n;i++)
+        {
+            for(auto l:allPossibleFBT(i))
+            {
+                for(auto r:allPossibleFBT(n-i-1))
+                {
+                    TreeNode* root=new TreeNode(0);
+                    root->left=l;
+                    root->right=r;
+                    res.push_back(root);
+                }
+            }
+        }
+        return res;
+        
+    }
+};

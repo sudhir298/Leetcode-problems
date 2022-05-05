@@ -1,0 +1,64 @@
+class MyStack {
+public:
+    queue<int> q1;
+    queue<int> q2;
+    bool use=true;
+    MyStack() {
+        
+    }
+    
+    void push(int x) 
+    {
+        if(use)
+        {
+            q2.push(x);
+            while(!q1.empty())
+            {
+                q2.push(q1.front());
+                q1.pop();
+            }
+            use=false;
+        }
+        else
+        {
+            q1.push(x);
+            while(!q2.empty())
+            {
+                q1.push(q2.front());
+                q2.pop();
+            }
+            use=true;
+        }
+    }
+    
+    int pop() 
+    {
+        int x;
+        if(use)
+        {
+            x=q1.front();
+            q1.pop();
+        }
+        else
+        {
+            x=q2.front();
+            q2.pop();
+        }
+        return x;
+    }
+    
+    int top() 
+    {
+        if(use)
+            return q1.front();
+        else
+            return q2.front();
+    }
+    
+    bool empty() {
+        if(use)
+            return q1.empty();
+        else
+            return q2.empty();
+    }
+};

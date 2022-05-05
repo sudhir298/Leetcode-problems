@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maximum69Number (int num) 
+    {
+        string s=to_string(num);
+        num=0;
+        bool flag=true;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='6' && flag)
+            {
+                num=num*10+9;
+                flag=false;
+            }
+            else
+                num=num*10+((int)s[i]-'0');
+        }
+        return num;
+    }
+};

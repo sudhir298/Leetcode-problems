@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string removeDuplicates(string s, int k) 
+    {
+        vector<int> v(s.size(), 0);
+        int i=0;
+        int j=0;
+        while(i<s.size() && j<s.size())
+        {
+            s[i] = s[j];
+            
+            if( i > 0 && s[i - 1] == s[i] )
+                v[i] = v[i-1] + 1;
+            else 
+                v[i] = 1;
+            
+            if( v[i] == k ) 
+                i -= k;
+            
+            i++;
+            j++;
+        } 
+        return s.substr(0, i);
+    }
+};

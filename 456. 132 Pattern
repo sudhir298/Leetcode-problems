@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) 
+    {
+        int cur_min =INT_MAX;
+        stack <pair <int, int>> range;
+        for(int k=0;k<nums.size();k++)
+        {
+            if(cur_min >=nums[k])
+                cur_min = nums[k];
+            else
+            {
+                while(!range.empty() && nums[k] >= range.top().second)
+                    range.pop();
+                
+                if(!range.empty() && nums[k] > range.top().first)
+                    return true; 
+                
+                range.push({cur_min, nums[k]});
+            }
+        }
+        return false;
+    }
+};

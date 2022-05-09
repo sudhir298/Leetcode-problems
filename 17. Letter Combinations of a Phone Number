@@ -1,0 +1,74 @@
+class Solution {
+public:
+    map<int,string> mp=
+    {
+        {2,"abc"},
+        {3,"def"},
+        {4,"ghi"},
+        {5,"jkl"},
+        {6,"mno"},
+        {7,"pqrs"},
+        {8,"tuv"},
+        {9,"wxyz"}
+    };
+    vector<string> res;
+    void solve(string s, string& digits, int i)
+    {
+        if(s.size()==digits.size())
+        {
+            res.push_back(s);
+            return;
+        }
+        for(char c:mp[digits[i]-'0'])
+            solve(s+c,digits,i+1);
+    }
+    
+    vector<string> letterCombinations(string digits)
+    {
+        if(digits.size()==0)
+            return {};
+        
+        solve("",digits,0);
+        return res;
+    }
+};
+
+
+
+-----------------OPTIMAL SOLUTION-------------
+----------------------------------------------
+----------------------------------------------
+class Solution {
+public:
+    vector<string> solve(string& digits,map<int,string>& mp,int i)
+    {
+        if(i==digits.size())
+            return {""};
+        
+        vector<string> res;
+        vector<string> v=solve(digits,mp,i+1);
+        for(auto i: mp[digits[i]-'0'])
+            for(auto j:v)
+                res.push_back(i+j);
+        
+        return res;         
+    }
+    
+    vector<string> letterCombinations(string digits)
+    {
+        if(digits.size()==0)
+            return {};
+        
+        map<int,string> mp;
+        mp[2]="abc";
+        mp[3]="def";
+        mp[4]="ghi";
+        mp[5]="jkl";
+        mp[6]="mno";
+        mp[7]="pqrs";
+        mp[8]="tuv";
+        mp[9]="wxyz";
+        
+        return solve(digits,mp,0);
+    }
+};

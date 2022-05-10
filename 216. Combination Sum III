@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<vector<int>> res;
+    
+    void solve(int k,int n,vector<int> v,int x)
+    {
+        if(v.size()==k && n==0)
+        {
+            res.push_back(v);
+            return;
+        }
+        
+        for (int i = x; i <= 9; i++)
+        {
+            if (n-i >= 0) 
+            {
+                v.push_back(i);
+                solve(k, n-i, v, i+1);
+                v.pop_back();
+            }
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) 
+    {
+        vector<int> v;
+        solve(k,n,v,1);
+        return res;
+    }
+};
+
+
+
+
+/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+///////////////MORE EFFICIENT SOLUTION/////////////////////
+//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    vector<vector<int>> res;
+    
+    void solve(int k,int n,vector<int>& v)
+    {
+        if(v.size()==k)
+        {
+            if(accumulate(v.begin(),v.end(),0)==n)
+                res.push_back(v);
+            return;
+        }
+        
+        for (int i =(v.size()==0) ? 1:v.back()+1; i <= 9; i++)
+        {
+            v.push_back(i);
+            solve(k, n, v);
+            v.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) 
+    {
+        vector<int> v;
+        solve(k,n,v);
+        return res;
+    }
+};

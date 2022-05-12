@@ -1,0 +1,37 @@
+class FindElements {
+public:
+    TreeNode* node;
+    FindElements(TreeNode* root) {
+        node=root;
+        node->val=0;
+        travel(node);
+    }
+    void travel(TreeNode* root)
+    {
+        if(!root)
+            return;
+        
+        int x=root->val;
+        if(root->left!=NULL)
+            root->left->val=2*x+1;
+        if(root->right!=NULL)
+            root->right->val=2*x+2;
+        
+        travel(root->left);
+        travel(root->right);
+    }
+    bool check(TreeNode* root,int target)
+    {
+        if(!root)
+            return false;
+        
+        if(root->val==target)
+            return true;
+        
+        return check(root->left, target)|| check(root->right,target);
+    }
+    bool find(int target) 
+    {
+        return check(node,target);
+    }
+};

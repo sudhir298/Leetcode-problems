@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> res;
+    void solve(Node* root)
+    {
+        if(!root)
+            return;
+        
+        for(Node* node: root->children)
+            solve(node);
+        
+        res.push_back(root->val);
+    }
+    vector<int> postorder(Node* root) {
+        solve(root);
+        return res;
+    }
+};
+
+
+
+//////////////////////////////////////////////////////////
+//////////////USING STACK////////////////////////////////
+////////////////////////////////////////////////////////
+class Solution {
+public:
+    
+    vector<int> postorder(Node* root) 
+    {
+        vector<int> res;
+        if(!root)
+            return res;
+        stack<Node*> st;
+        st.push(root);
+        while(!st.empty())
+        {
+            Node* temp=st.top();
+            res.push_back(temp->val);
+            st.pop();
+            for(auto i:temp->children)
+                st.push(i);
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};

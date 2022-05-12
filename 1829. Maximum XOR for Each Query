@@ -11,9 +11,7 @@ public:
             int sum=0;
             for(int j=0;j<maximumBit;j++)
             {
-                if(1<<j & nums[i])
-                {}
-                else
+                if((1<<j & nums[i])==0)
                     sum+=(1<<j);
             }
             res.push_back(sum);

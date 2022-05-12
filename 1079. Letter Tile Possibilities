@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int solve(map<char,int>& mp, int len)
+    {
+        if (len == 0)
+            return 0;
+        
+        int sum = 0;
+        for (auto& i : mp)
+        {
+            if(i.second > 0) 
+            {
+                i.second--;
+                sum += 1 + solve(mp, len - 1);
+                i.second++;
+            }
+        }
+        return sum;
+    }
+    
+    int numTilePossibilities(string tiles) 
+    {
+        map<char,int> mp;
+        for(auto i:tiles)
+            mp[i]++;
+        
+        return solve(mp,tiles.size());
+    }
+};

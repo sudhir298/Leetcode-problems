@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck)
+    {
+        sort(deck.begin(),deck.end());
+        vector<int> res;
+        int i=deck.size()-1;
+        while(i>=0)
+        {
+            if(res.size()!=0)
+            {
+                int x=res.back();
+                res.pop_back();
+                res.insert(res.begin(),x);
+            }
+            res.insert(res.begin(),deck[i--]);
+        }
+        return res;
+    }
+};

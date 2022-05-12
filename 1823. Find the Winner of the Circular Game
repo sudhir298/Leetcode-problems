@@ -1,0 +1,42 @@
+////////////////////////////////////////////////////////
+//////////EFFICIENT SOLUTION///////////////////////////
+//////////////////////////////////////////////////////
+class Solution {
+public:
+    int solve(int n, int k)
+    {
+        if (n == 1)
+            return 1;
+        else
+            return ((solve(n-1, k) + k-1) % n) + 1;
+    }
+    int findTheWinner(int n, int k)
+    {
+        return solve(n,k);
+    }
+};
+
+
+
+////////////////////////////////////////////////////
+///////////////////////////////////////////////////
+class Solution {
+public:
+    int solve(vector<int>& v, int k,int pos)
+    {
+        if(v.size()==1)
+            return v[0];
+        
+        pos=(pos+k)%v.size();
+        v.erase(v.begin()+pos);
+        
+        return solve(v , k, pos);
+    }
+    int findTheWinner(int n, int k)
+    {
+        vector<int> v;
+        for(int i=1;i<=n;i++)
+            v.push_back(i);
+        return solve(v,k-1,0);
+    }
+};

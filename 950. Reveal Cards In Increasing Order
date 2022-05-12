@@ -18,3 +18,41 @@ public:
         return res;
     }
 };
+
+
+
+
+/////////////////////////////////////////////////////////////
+///////////////EFFICIENT SOLUTION///////////////////////////
+///////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck)
+    {
+        sort(deck.begin(),deck.end());
+        
+        deque<int> dq;
+        for(int i=0;i<deck.size();i++)
+            dq.push_back(i);
+        
+        vector<int> res(deck.size());
+        bool flag=true;
+        int i=0;
+        while(!dq.empty())
+        {
+            if(flag)
+            {
+                res[dq.front()]=deck[i++];
+                dq.pop_front();
+            }
+            else
+            {
+                dq.push_back(dq.front());
+                dq.pop_front();
+            }
+            flag=!flag;
+        }
+        return res;
+    }
+};

@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool check(string s,string t)
+    {
+        vector<char> a(26,'0');
+        vector<char> b(26,'0');
+        
+        for(int i=0;i<s.size();i++)
+        {
+            if(a[int(t[i])-'a'] =='0')
+                a[int(t[i])-'a']=s[i];
+            
+            if(b[int(s[i])-'a'] =='0')
+                b[int(s[i])-'a']=t[i];
+        
+            if(a[int(t[i])-'a'] !=s[i] ||b[int(s[i])-'a'] !=t[i])
+                return false;
+        }
+        return true;
+    }
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) 
+    {
+        vector<string> res;
+        for(auto s:words)
+            if(check(s,pattern))
+                res.push_back(s);
+        
+        return res;
+    }
+};

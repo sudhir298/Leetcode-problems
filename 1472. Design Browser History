@@ -1,0 +1,66 @@
+/////////////////////////////////////////////////////////
+///////USING TWO VECTORS////////////////////////////////
+///////////////////////////////////////////////////////
+class BrowserHistory {
+public:
+    vector<string> f;
+    vector<string> b;
+    string cur;
+    BrowserHistory(string homepage) {
+        cur=homepage;
+    }
+    
+    void visit(string url) {
+        f.clear();
+        b.push_back(cur);
+        cur=url;
+    }
+    
+    string back(int steps) {
+        while(!b.empty() && steps--)
+        {
+            f.push_back(cur);
+            cur=b.back();
+            b.pop_back();
+        }
+        return cur;
+    }
+    
+    string forward(int steps) {
+        while(!f.empty() && steps--)
+        {
+            b.push_back(cur);
+            cur=f.back();
+            f.pop_back();
+        }
+        return cur;
+    }
+};
+
+
+////////////////////////////////////////////////////
+/////////////EFFICIENT SOLUTION////////////////////
+//////////////////////////////////////////////////
+class BrowserHistory {
+public:
+    vector<string> res;
+    int x=0;
+    BrowserHistory(string homepage) {
+        res.push_back(homepage);
+    }
+    
+    void visit(string url) {
+        res.resize(++x);
+        res.push_back(url);
+    }
+    
+    string back(int steps) {
+        x=max(0,x-steps);
+        return res[x];
+    }
+    
+    string forward(int steps) {
+        x=min((int)res.size()-1,x+steps);
+        return res[x];
+    }
+};

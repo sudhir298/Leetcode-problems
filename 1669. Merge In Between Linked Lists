@@ -1,0 +1,32 @@
+class Solution {
+public:
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) 
+    {
+        ListNode* ptr = list1;
+        ListNode* back = ptr;
+        
+        int i=1;
+        while(i<a)
+        {
+            ptr = ptr->next;
+            back = back->next;
+            i++;
+        }
+        
+        while(i<=b+1)
+        {
+            back = back->next;
+            i++;
+        }
+        
+        ptr->next = list2;
+        
+        ptr = list2;
+        while (ptr->next) 
+            ptr = ptr->next;
+        
+        ptr->next = back;
+        return list1;
+        
+    }
+};

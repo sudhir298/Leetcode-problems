@@ -1,0 +1,76 @@
+class Solution {
+public:
+    int res=0;
+    
+    void solve(TreeNode* root,int n)
+    {
+        if(root->left==NULL && root->right==NULL)
+        {
+            res+=2*n+root->val;
+            return;
+        }
+        n=2*n+root->val;
+        
+        if(root->left)
+            solve(root->left,n);
+        if(root->right)
+            solve(root->right,n);
+    }
+    int sumRootToLeaf(TreeNode* root) 
+    {
+        solve(root,0);
+        return res;
+    }
+};
+
+
+///////////////////////////////////////////////
+///////////////USING STRING & MAP/////////////
+/////////////////////////////////////////////
+
+class Solution {
+public:
+    map<string,int> mp;
+    int res=0;
+    int convert(string s)
+    {
+        string num = s;
+        int dec_value = 0;
+
+        int base = 1;
+
+        int len = num.length();
+        for (int i = len - 1; i >= 0; i--) 
+        {
+            if (num[i] == '1')
+                dec_value += base;
+            base = base * 2;
+        }
+        return dec_value;
+       
+    }
+    void solve(TreeNode* root,string s)
+    {
+        if(root->left==NULL && root->right==NULL)
+        {
+            s+=to_string(root->val);
+            if(mp.find(s)==mp.end())
+            {
+                int x=convert(s);
+                mp[s]=x;
+            }
+            res+=mp[s];
+            return;
+        }
+        
+        if(root->left)
+            solve(root->left,s+to_string(root->val));
+        if(root->right)
+            solve(root->right,s+to_string(root->val));
+    }
+    int sumRootToLeaf(TreeNode* root) 
+    {
+        solve(root,"");
+        return res;
+    }
+};

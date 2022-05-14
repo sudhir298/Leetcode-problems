@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+        map<string, int> mp;
+        for(string cpdomain: cpdomains)
+        {
+            stringstream ss(cpdomain);
+            int count;
+            string domain;
+            ss >> count >> domain;
+
+            while(true)
+            {
+                mp[domain] += count;
+
+                if(domain.find('.') ==-1)
+                    break;
+                else
+                    domain = domain.substr(domain.find('.') + 1);
+            }
+        }
+
+        vector<string> res;
+        for(pair<string, int> p: mp)
+            res.push_back(to_string(p.second) + " " + p.first);
+        return res;
+    }
+};

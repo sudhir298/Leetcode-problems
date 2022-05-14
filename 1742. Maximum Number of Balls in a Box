@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int countBalls(int lowLimit, int highLimit)
+    {
+        map<int, int> mp;
+        int res = 0;
+        for (int i=lowLimit; i<=highLimit; ++i)
+        {
+            int x=i;
+            int y = 0;
+            while(x)
+            {
+                y += x%10;
+                x/=10;
+            }
+            res =max(res, ++mp[y]);
+        }
+        return res;
+    }
+};

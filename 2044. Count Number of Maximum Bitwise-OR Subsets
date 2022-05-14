@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int count=0;
+    void solve(vector<int>& nums,int x,int y,int i)
+    {
+        if(i==nums.size())
+        {
+            if(x==y)
+                count++;
+            return;
+        }
+        
+        solve(nums,x,y|nums[i],i+1);
+        solve(nums,x,y,i+1);
+        
+    }
+    int countMaxOrSubsets(vector<int>& nums) 
+    {
+        int x=0;
+        for(int i:nums)
+            x|=i;
+        
+        solve(nums,x,0,0);
+        return count;
+    }
+};

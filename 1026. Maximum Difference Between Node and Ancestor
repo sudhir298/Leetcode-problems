@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int solve(TreeNode* root,int mx,int mn)
+    {
+        if(!root)
+            return mx-mn;
+        
+        return max(solve(root->left,max(root->val,mx),min(root->val,mn)),solve(root->right,max(root->val,mx),min(root->val,mn)));
+    }
+    
+    int maxAncestorDiff(TreeNode* root)
+    {
+        return solve(root,0,INT_MAX);
+    }
+};

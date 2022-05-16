@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numOfPairs(vector<string>& nums, string target)
+    {
+        map<string,int> mp;
+        for(string s:nums)
+            mp[s]++;
+        
+        int res=0;
+        for(int i=1;i<target.size();i++)
+        {
+            string s=target.substr(0,i);
+            string t=target.substr(i,target.size());
+            if(mp.find(s)!=mp.end() && mp.find(t)!=mp.end())
+            {
+                res+=mp[s]*mp[t];
+                if(s==t)
+                    res-=mp[s];
+            }
+        }
+        return res;
+    }
+};

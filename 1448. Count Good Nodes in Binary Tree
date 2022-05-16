@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int res=1;
+    void solve(TreeNode* root,int mx)
+    {
+        if(!root)
+            return ;
+        
+        if(mx <= root->val)
+            res++;
+        
+        solve(root->left,max(mx,root->val));
+        solve(root->right,max(mx,root->val));
+
+    }
+    int goodNodes(TreeNode* root) 
+    {
+        if(!root)
+            return 0;
+        
+        if(root->left)
+           solve(root->left,root->val);
+        
+        if(root->right)
+            solve(root->right,root->val);
+        
+        return res;
+            
+    }
+};

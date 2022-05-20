@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<string> res;
+    void solve(string s,int x,string t)
+    {
+        if(x==s.size())
+        {
+            res.push_back(t);
+            return;
+        }
+        if(!isdigit(s[x]))
+        {
+            solve(s,x+1,t+s[x]);
+            if(islower(s[x]))
+                t.push_back(toupper(s[x]));
+            else
+                t.push_back(tolower(s[x]));
+            solve(s,x+1,t);
+        }
+        else
+            solve(s,x+1,t+s[x]);
+    }
+    vector<string> letterCasePermutation(string s) 
+    {
+        solve(s,0,"");
+        return res;
+    }
+};

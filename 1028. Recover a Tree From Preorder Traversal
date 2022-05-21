@@ -1,0 +1,43 @@
+class Solution {
+public:
+    TreeNode* recoverFromPreorder(string s)
+    {
+        stack<TreeNode*>  st;
+        int i=0;
+        while(i<s.size())
+        {
+            int level=0;
+            while(s[i]=='-')
+            {
+                level++;
+                i++;
+            }
+            
+            int start=i;
+            while(isdigit(s[i]))
+                i++;
+            
+            int val=stoi(s.substr(start,i-start+1));
+            TreeNode* temp=new TreeNode(val);
+            
+            if(st.empty())
+            {
+                st.push(temp);
+                continue;
+            }
+            
+            while(st.size()>level)
+                st.pop();
+            
+            if(st.top()->left)
+                st.top()->right=temp;
+            else
+                st.top()->left=temp;
+            
+            st.push(temp);
+        }
+        while(st.size()>1)
+            st.pop();
+        return st.top();
+    }
+};

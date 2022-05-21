@@ -3,27 +3,22 @@ public:
     
     int coinChange(vector<int>& coins, int amount)
     {
-        vector<long> v(amount+1);  
-        v[0] = 0;
+        vector<long> v(amount+1);
+        v[0]=0;
+        int n=coins.size();
         
-        for(int i=1; i<=amount; i++)
+        for(int i=1;i<=amount;i++)
         {
-            long mini = INT_MAX;
-            for(int j =0;j<coins.size();j++)
+            long mn = INT_MAX;
+            for(int j=0;j<n;j++)
             {
-
-               long s = i - coins[j];
-
-               if(s>=0)
-                mini = min(mini ,1+v[s]);
+                long s = i - coins[j];
+                   
+                if(s>=0)
+                    mn = min(mn ,1+v[s]);
             }
-            
-            v[i] = mini;
+            v[i]=mn;
         }
-        
-        if(v[amount]>=INT_MAX)
-            return -1;
-        
-        return v[amount]; 
+        return v[amount]>= INT_MAX ? -1: v[amount];
     }
 };

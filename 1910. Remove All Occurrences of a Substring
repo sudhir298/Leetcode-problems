@@ -9,3 +9,31 @@ public:
         return s;
     }
 };
+
+
+
+/////////////////////////////////////////////////////////////
+/////////////////////ALTERNATIVE////////////////////////////
+///////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    string removeOccurrences(string s, string part) 
+    {
+        int n = s.size();
+        int k = part.size();
+
+        string t(n, ' ');
+        int j = 0;  
+
+        for (int i = 0; i < n; i++) 
+        {
+            t[j] = s[i];
+            j++;
+            if (j >= k && t.substr(j - k, k) == part)
+                j -= k;
+        }
+
+        return t.substr(0, j);
+    }
+};

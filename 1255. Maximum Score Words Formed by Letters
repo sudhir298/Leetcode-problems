@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    int solve(vector<string>& words,vector<int>& v,vector<int>& score,int index)
+    {
+        if(index==words.size())
+            return 0;
+        
+        int no=solve(words,v,score,index+1);
+        
+        int sword=0;
+        string s=words[index];
+        bool flag=true;
+        
+        for(auto i: s)
+        {
+            if(v[i-'a']==0)
+                flag=false;
+            
+            v[i-'a']--;
+            sword+=score[i-'a'];
+        }
+        
+        int yes=0;
+        if(flag)
+            yes=sword+solve(words,v,score,index+1);
+        
+        for(auto i: s)
+            v[i-'a']++;
+        
+        return max(no,yes);
+        
+    }
+    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) 
+    {
+        vector<int> v(26);
+        
+        for(auto i: letters)
+            v[i-'a']++;
+        return solve(words,v,score,0);
+    }
+};

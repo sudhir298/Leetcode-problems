@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr)
+    {
+        map<int,int> mp;
+        for(int i:arr)
+            mp[i]++;
+        set<int> st;
+        for(auto x:mp)
+        {
+            if(st.find(x.second)==st.end())
+                st.insert(x.second);
+            else
+                return false;
+        }
+        return true;
+    }
+};

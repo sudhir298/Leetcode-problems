@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> sortByBits(vector<int>& arr)
+    {
+        map<int,vector<int>> mp;
+        for(int i: arr)
+        {
+            int x=__builtin_popcountll(i);
+            mp[x].push_back(i);
+        }
+        arr.clear();
+        for(auto i:mp)
+        {
+            sort(i.second.begin(),i.second.end());
+            for(int j:i.second)
+                arr.push_back(j);  
+        }
+        return arr;
+    }
+};

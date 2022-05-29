@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int maxProduct(vector<string>& words) 
+    {
+        map<int,int> mxlen;
+        for(auto& w: words) 
+        {
+            int mask = 0;
+            for (auto& c: w) 
+                mask = mask | ( 1 << (c-'a'));
+            
+            if(mxlen.find(mask)==mxlen.end() || mxlen[mask]<w.size())
+                mxlen[mask] = w.size();
+        }
+        
+        int res = 0;
+        for (auto a : mxlen)
+        {
+            for (auto b: mxlen)
+            {
+                if (a.first & b.first)
+                    continue; 
+
+                res = max( res, a.second * b.second );
+            }
+        }
+        
+        return res;   
+    }
+};

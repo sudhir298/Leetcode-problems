@@ -1,0 +1,44 @@
+class Solution {
+public:
+    
+    vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) 
+    {
+        int dx[8]={1 , 1 , -1 , -1 , 1 , -1 , 0 , 0};
+        int dy[8]={-1 ,1 , 1 , -1 , 0 , 0 , 1 , -1};
+        
+        vector<vector<bool>> grid(8 , vector<bool>(8 , false));
+        
+        vector<vector<int>> res;
+        
+        for(int i=0;i<queens.size();i++)
+        {
+            int x=queens[i][0];
+            int y=queens[i][1];
+            
+            grid[x][y]=true;
+        }
+        
+        int x=king[0];
+        int y=king[1];
+        
+        
+        for(int k=0;k<8;k++)
+        {
+            int newx=x+dx[k];
+            int newy=y+dy[k];
+            
+            while(newx>=0 && newy>=0 && newx<8 && newy<8)
+            {
+                if(grid[newx][newy]==true)
+                {
+                    res.push_back({newx , newy});
+                    break;
+                }
+                newx=newx+dx[k];
+                newy=newy+dy[k];
+            }
+        }
+        
+        return res;
+    }
+};

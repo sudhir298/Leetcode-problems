@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {
+        
+        vector<vector<int>> res;
+        int n1=firstList.size();
+        int n2=secondList.size();
+        
+        int i=0;
+        int j=0;
+        while(i<n1 && j<n2)
+        {
+            int si=firstList[i][0];
+            int ei=firstList[i][1];
+            
+            int sj=secondList[j][0];
+            int ej=secondList[j][1];
+            
+            if((si<=ej && sj<=ei))
+            {
+                int x=max(si,sj);
+                int y=min(ei,ej);
+                res.push_back({x,y});
+            }
+            
+            if(ei <= ej)
+                i++;
+            else
+                j++;
+        }
+        return res;
+            
+    }
+};

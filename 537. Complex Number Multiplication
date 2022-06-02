@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> convert(string s)
+    {
+        int i=0;
+        int a=0;
+        bool nf=false;
+        if(s[i]=='-')
+        {
+            nf=true;
+            i++;
+        }
+        while(s[i]!='+')
+        {
+            a=a*10+((int)s[i]-'0');
+            i++;
+        }
+        if(nf)
+            a=-a;
+        
+        i++;
+        nf=false;
+        
+        int b=0;
+        if(s[i]=='-')
+        {
+            nf=true;
+            i++;
+        }
+        while(s[i]!='i')
+        {
+            b=b*10+((int)s[i]-'0');
+            i++;
+        }
+        if(nf)
+            b=-b;
+        return {a,b};
+    }
+    string complexNumberMultiply(string num1, string num2) 
+    {
+        vector<int> x=convert(num1);
+        vector<int> y=convert(num2);
+        cout<<x[0]<<' '<<x[1]<<'\n';
+        cout<<y[0]<<' '<<y[1]<<'\n';
+
+        int a = x[0] * y[0] - x[1] * y[1];
+        int b = x[0] * y[1] + x[1] * y[0];
+        
+        return to_string(a)+"+"+to_string(b)+"i";        
+    }
+};
